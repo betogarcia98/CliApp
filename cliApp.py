@@ -75,16 +75,17 @@ def update(id,nombre,direccion,telefono):
     if id not in ListaClientes.keys():
         print("The client does not exist, try the 'create' command")
     else:
-        if id == 0 or nombre == "" or direccion == "" or telefono == "":
+        if id == 0 and nombre == "" and direccion == "" and telefono == "":
             print("Please insert a value to change")
-        if(nombre == ""):
-            nombre = ListaClientes[id].Nombre
-        if(direccion == ""):
-            direccion = ListaClientes[id].Direccion
-        if(telefono == ""):
-            telefono = ListaClientes[id].Telefono
-        ListaClientes[id] = Cliente(nombre, direccion ,telefono)
-        print("The values have changed...")
+        else:
+            if(nombre == ""):
+                nombre = ListaClientes[id].Nombre
+            if(direccion == ""):
+                direccion = ListaClientes[id].Direccion
+            if(telefono == ""):
+                telefono = ListaClientes[id].Telefono
+            ListaClientes[id] = Cliente(nombre, direccion ,telefono)
+            print("The values have changed...")
         
 #Comando para borrar un cliente, debe recibir un id válido
 @cli.command()
@@ -113,7 +114,7 @@ def load(arch):
     file = open(str(arch), "r")
     for line in file:
         values = line.split(",")
-        ListaClientes[values[0]] = Cliente(values[1],values[2],values[3][:-1])
+        ListaClientes[int(values[0])] = Cliente(values[1],values[2],values[3][:-1])
     print("Data loaded from file...")
 
 #Start Point
